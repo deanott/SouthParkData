@@ -49,8 +49,8 @@ if __name__ == "__main__":
         print("Processing conversations: ", name)
         csv_convo_parser(o, name)
 
-    data_path = "convo_" + args.character  + ".txt"
-    with open(data_path , 'w') as fp:
+    data_path = "by-message-response/" + "convo_" + args.character  + ".txt"
+    with open( data_path , 'w') as fp:
         for msg_res in main_msg_res:
             fp.writelines(msg_res[1] + "\n")
             fp.writelines(msg_res[0] + "\n")
