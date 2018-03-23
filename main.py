@@ -24,16 +24,17 @@ def csv_convo_parser(obj, name):
         if main_res != '':
             print(prev_row[2], "---", prev_row[3][:-1])
             print(name, ":---", main_res)
-
-            main_msg_res.append( (prev_row[3],main_res) )
+            main_msg_res.append( (main_res, prev_row[3][:-1]) )
             
             main_res = ''
+            prev_row = row
+
         elif re.match(name, row[2]):
             main_res += row[3][:-1]
         else:
             prev_row = row
 
-    print(main_msg_res)
+    return main_msg_res
 
 if __name__ == "__main__":
 
@@ -47,3 +48,9 @@ if __name__ == "__main__":
     with open(FILE_PATH, "r") as o:
         print("Processing conversations: ", name)
         csv_convo_parser(o, name)
+
+    data_path = "convo_" + args.character  + ".txt"
+    with open(data_path , 'w') as fp:
+        for msg_res in main_msg_res:
+            fp.writelines(msg_res[1] + "\n")
+            fp.writelines(msg_res[0] + "\n")
